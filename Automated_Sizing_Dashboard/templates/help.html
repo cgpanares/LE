@@ -1,0 +1,65 @@
+{% extends "header.html" %}
+
+{% block body %}
+<body>
+      <div class="main-panel">
+        <div class="content-wrapper" style="background:#370000;">
+              <div class="card" style="border-color:#131414;">
+                <div class="card-body bg-dark text-white">
+                  <h2 class="text-white">Help</h2>
+                    <div class="panel panel-default">
+                  <br>
+                  <dl>
+                       <dt><h3>About the website</h3></dt>
+                       <dd>Automated Sizing Dashboard is a web application where it helps to track or audit the
+                           instance types currently set to most customer deployments. Instances would connect to this
+                           dashboard to query their designated instance type and if not set properly, they will be
+                           resized according to what was defined in the dashboard.</dd>
+                       <br>
+                       <dt><h3>Actions Available</h3></dt>
+                       <dd>
+                        <ul>
+                           <li><b>Dashboard - View Instances</b></li>
+                            <ul>
+                              <li>User will be able to view the details of the instances. If in Admin mode, additional functions will be available (edit, delete).</li>
+                            </ul>
+                           <li><b>Add Instance</b></li>
+                            <ul>
+                              <li>(Admin mode) users will be able to add a specific instance to set a custom desired instance type. Can be done through single entry or via CSV.</li>
+                            </ul>
+                           <li><b>Reports</b></li>
+                            <ul>
+                              <li>A page where you can view and audit all the actions that have been done by a user on each instance. And, provides view to the attempts made by environment restart if resizing is successful or not.</li>
+                            </ul>
+                        </ul>
+                       </dd>
+                  </dl>
+              </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer bg-dark">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-white d-block text-center text-sm-left d-sm-inline-block">Copyright 2023</span>
+            <span class="float-none text-white float-sm-right d-block mt-1 mt-sm-0 text-center">Clark Panares</span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+
+  {% include "modals.html" %}
+  <!-- plugins:js -->
+  <script src="{{ url_for('static', filename='vendors/base/vendor.bundle.base.js') }}"></script>
+  <!-- inject:js -->
+  <script src="{{ url_for('static', filename='js/template.js') }}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="{{ url_for('static', filename='js/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/dataTables.bootstrap4.min.js') }}"></script>
+</body>
+
+{% endblock %}

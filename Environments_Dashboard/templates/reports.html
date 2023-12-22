@@ -1,0 +1,72 @@
+{% extends "header.html" %}
+
+{% block body %}
+<body>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-md-12 stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title">Reports</p>
+                  <div class="table-responsive">
+                    <table id="recent-purchases-listing" class="table table-striped table-bordered table-sm text-center align-middle" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                            <th>Date and Time</th>
+                            <th>User</th>
+                            <th>Alias</th>
+                            <th>Action Taken</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% if list_of_reports is defined and list_of_reports|length > 0 %}
+                          {% for x in list_of_reports %}
+                            <tr>
+                                <td><p hidden>{{x["date_and_time"]}} <p><p id = "report_timestamp">{{x["date_and_time"]}}</p></td>
+                                <td>{{x["user"]}}</td>
+                                <td>{{x["alias_name"]}}</td>
+                                <td>{{x["action_taken"]}}</td>
+                            </tr>
+                          {% endfor %}
+                        {% else %}
+                          <tr>
+                            <td colspan="8">No records found in the database.</td>
+                          </tr>
+                        {% endif %}
+                      </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright 2022</span>
+            <span class="float-none text-muted float-sm-right d-block mt-1 mt-sm-0 text-center">Clark Panares</span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+
+  {% include "modals.html" %}
+  <!-- plugins:js -->
+  <script src="{{ url_for('static', filename='vendors/base/vendor.bundle.base.js') }}"></script>
+  <!-- inject:js -->
+  <script src="{{ url_for('static', filename='js/template.js') }}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/data-table.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.dataTables.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/dataTables.bootstrap4.js') }}"></script>
+</body>
+
+{% endblock %}

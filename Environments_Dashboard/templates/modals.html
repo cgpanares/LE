@@ -1,0 +1,202 @@
+<!-- Modal for adding deployment -->
+<div class="modal fade" id="addDeployment" tabindex="-1" role="dialog" aria-labelledby="addDeployment" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <form action = "" method="post" id ="form" enctype=multipart/form-data>
+      <div class="modal-header" style="border-bottom: 1px solid #3f4143">
+        <h5 class="modal-title" id="exampleModalLongTitle">Include Deployment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+      <fieldset class="form-group">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="Incldep_upl_rdbtn" name="Incldep_rdbtns" class="custom-control-input" value = "Incldep_upl_rdbtn">
+              <label class="custom-control-label" for="Incldep_upl_rdbtn">Upload CSV File</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline" hidden>
+              <input type="radio" id="Incldep_json_rdbtn" name="Incldep_rdbtns" class="custom-control-input" value = "Incldep_json_rdbtn">
+              <label class="custom-control-label" for="Incldep_json_rdbtn">Specify JSON</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline" hidden>
+              <input type="radio" id="Incldep_indv_rdbtn" name="Incldep_rdbtns" class="custom-control-input" value = "Incldep_indv_rdbtn">
+              <label class="custom-control-label" for="Incldep_indv_rdbtn">Individual Alias</label>
+            </div>
+      </fieldset>
+
+      <!-- batch adding of deployment (JSON) -->
+      <div class="form-group row" id = "incld_json_form">
+        <label for="data_remarks" class="col-sm-4 col-form-label">Enter JSON</label>
+        <div class="col-sm-8">
+          <textarea class="form-control" id="incld_json_input" name = "incld_json_input" rows="7" style="resize: none;"></textarea>
+        </div>
+      </div>
+
+      <!-- individual adding of deployment -->
+      <div class="form-group row" id = "incld_indv_form_alias">
+          <label for="inputAlias" class="col-sm-4 col-form-label">Deployment/Alias</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="inputAlias" name = "add_alias_name" placeholder="leopprd">
+          </div>
+        </div>
+        <div class="form-group row" id = "incld_indv_form_owner">
+          <label for="inputOwner" class="col-sm-4 col-form-label">Owner</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="inputOwner" name = "add_alias_owner" placeholder="Admin">
+          </div>
+        </div>
+        <div class="form-group row" id = "incld_indv_form_region">
+          <label for="inputRegion" class="col-sm-4 col-form-label">Region</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="inputRegion" name = "add_alias_region" placeholder="us-east-2">
+          </div>
+        </div>
+        <div class="form-group row" id = "incld_indv_form_app">
+          <label for="inputAPP" class="col-sm-4 col-form-label">APP</label>
+          <div class="col-sm-8 form-group">
+            <select name = "add_alias_app" id = "inputAPP" class="form-control">
+              <option selected>---</option>
+              <option value="PROD">PROD</option>
+              <option value="STAGE">STAGE</option>
+              <option value="DEV">DEV</option>
+            </select>
+          </div>
+        </div>
+
+      <!-- file upload (CSV) -->
+        <input type="file" id = "incld_csv_form" name = "file" placeholder="file.csv">
+      </div>
+      <div class="modal-footer" style="border-top: 1px solid #3f4143">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success" formaction="/dashboard/includeDp">Add</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for removing deployment -->
+<div class="modal fade" id="removeDeployment" tabindex="-1" role="dialog" aria-labelledby="removeDeployment" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <form action = "" method="post" id ="form">
+      <div class="modal-header" style="border-bottom: 1px solid #3f4143">
+        <h5 class="modal-title" id="exampleModalLongTitle">Exclude Deployment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group row">
+          <label for="inputAlias" class="col-sm-4 col-form-label">Deployment/Alias</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="inputAlias" name = "del_alias_name" placeholder="leopprd">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="border-top: 1px solid #3f4143">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-danger" formaction="/dashboard/excludeDp">Remove</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for modifying deployment details-->
+<div class="modal fade" id="editDeployment" tabindex="-1" role="dialog" aria-labelledby="editDeployment" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <form action = "" method="post" id ="form">
+      <div class="modal-header" style="border-bottom: 1px solid #3f4143">
+        <h5 class="modal-title" id="data_alias_header"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group row">
+          <input type = "text" name = "edit_alias_name" id = "data_alias" value = "" readonly hidden />
+          <label for="data_activity" class="col-sm-4 col-form-label">Activity</label>
+          <div class="col-sm-8">
+            <input onkeydown="return /^[A-Z0-9 ,-]*$/i.test(event.key)" type="text" class="form-control" id="data_activity" name = "edit_alias_activity" value = "">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="data_remarks" class="col-sm-4 col-form-label">Remarks</label>
+          <div class="col-sm-8">
+            <textarea class="form-control" id="data_remarks" name = "edit_alias_remarks" rows="5" style="resize: none;"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="border-top: 1px solid #3f4143">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success" formaction="/dashboard/index" name = "btn_submit" value = "edit_alias_dtls">Save</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for checking out-->
+<div class="modal fade" id="checkOutDeployment" tabindex="-1" role="dialog" aria-labelledby="checkOutDeployment" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <form action = "" method="post" id ="form2">
+      <div class="modal-header" style="border-bottom: 1px solid #3f4143">
+        <h5 class="modal-title" id="co_data_alias_header"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type = "text" name = "co_alias_name" id = "co-data-alias" value = "" readonly hidden />
+        
+        <fieldset class="form-group">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="CO_all_rdbtn" name="CO_rd_btns" class="custom-control-input" value = "CO_all_rdbtn">
+              <label class="custom-control-label" for="CO_all_rdbtn">Check Out All</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="CO_sel_rdbtn" name="CO_rd_btns" class="custom-control-input" value = "CO_sel_rdbtn">
+              <label class="custom-control-label" for="CO_sel_rdbtn">Selected Check Out</label>
+            </div>
+       </fieldset>
+      
+        <div class="form-group row" id = "CO_sel_cB">
+          <div class="col-sm-12">
+            <div class="border border-light" style="overflow-y:scroll; height: 100px;" id = "CO_cB_machines">
+              <input type="text" name="CO_chbx_machines_plhr" value="" class = "placeholder_checkbox" hidden/>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row" id = "CO_jiratix_remarks">
+          <label for="data_activity" class="col-sm-4 col-form-label">JIRA Ticket/s</label>
+          <div class="col-sm-8">
+            <input onkeydown="return /^[A-Z0-9 ,-]*$/i.test(event.key)" type="text" class="form-control" id="data_aliasjira" name = "alias_jira" value = "" placeholder="JIRA-1234, JIRA-5678">
+          </div>
+          <div class="col-sm-12">
+            <textarea class="form-control" id="data_remarks" name = "alias_remarks" rows="4" style="resize: none;" placeholder="Remarks"></textarea>
+          </div>
+        </div>
+
+        <fieldset class="form-group" id = "CO_adtl_options">
+            <div class="custom-control custom-control-inline">
+            <label class="form-check-label" for="CO_set_tmt">Set Timeout (minutes)</label>
+            <input type="checkbox" id="CO_set_tmt" name="CO_set_tmt" class="form-check-input" value = "set_timeout">
+            <input type='text' class='form-control' id = 'id_input_timeout' name = 'input_timeout' value = '' placeholder='240'>
+            </div>
+       </fieldset>
+
+      </div>
+      <div class="modal-footer" style="border-top: 1px solid #3f4143">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-danger" formaction="/dashboard/index" name = "btn_submit" value = "CO_btn_submit">Check Out</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>

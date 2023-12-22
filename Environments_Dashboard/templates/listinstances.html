@@ -1,0 +1,79 @@
+{% extends "header_listinstances.html" %}
+
+{% block body %}
+<body>
+      <div class="container">
+        <form action = "" method="post" id ="form">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-md-12 stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title text-center align-middle">List of Machines for {{alias_name}}</p>
+                  <div class="table-responsive">
+                    <table id="recent-purchases-listing" class="table table-striped table-bordered table-sm text-center align-middle" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                            <th>Machine Name</th>
+                            <th>Occupied?</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% set occupied_by = namespace(name=None) %}
+                        {% for x in list_of_instances %}
+                        {% set occupied_by.name = x["occupied_by"] %}
+                          {% for i in x["instanceList"] %}
+                            {% set instance_status = ' '.join(i.values()) %}
+                          <tr>
+                              <td>
+                              {{' '.join(i.keys())}}
+                            </td>
+                              {% if instance_status == "In" %}
+                              <td><input type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="danger" name = "machineName" value = "{{' '.join(i.keys())}}"></td>
+                              {% elif instance_status == "Out" %}
+                              <td><input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="danger" name = "machineName" value = "{{' '.join(i.keys())}}"></td>
+                              {% endif %}
+                          </tr>
+                            {% endfor %}
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+               <div class="btn-group" role="group" aria-label="Functions">
+                 {% if occupied_by.name == username %}
+                  <button type="submit" class="btn btn-success mr-2" formaction="/dashboard/listinstances?alias={{alias_name}}" method='post' form="form" name="save_change">Save Changes</button>
+                 {% endif %}
+                  <button type="button" class="btn btn-danger" name="close_in_window" onclick="window.open('', '_self', ''); window.close();">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright 2022</span>
+            <span class="float-none text-muted float-sm-right d-block mt-1 mt-sm-0 text-center">Clark Panares</span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </form>
+  <!-- plugins:js -->
+  <script src="{{ url_for('static', filename='vendors/base/vendor.bundle.base.js') }}"></script>
+  <!-- inject:js -->
+  <script src="{{ url_for('static', filename='js/template.js') }}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/data-table.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/dataTables.bootstrap4.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+</body>
+
+{% endblock %}

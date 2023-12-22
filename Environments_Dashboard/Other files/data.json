@@ -1,0 +1,10 @@
+{
+	"data": [
+		{
+			"alias_name": "<name>",
+			"alias_owner": "<owner>",
+			"alias_region": "<region>",
+			"alias_app": "development"
+		}
+	]
+}

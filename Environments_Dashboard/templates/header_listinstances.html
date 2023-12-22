@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>LE Environment Dashboard</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/mdi/css/materialdesignicons.min.css') }}">
+  <!-- plugin css for this page -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
+  <!-- End plugin css for this page -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="{{ url_for('static', filename='css/bootstrap4-toggle.min.css') }}" rel="stylesheet">
+  <!-- custom_functions:js -->
+  <script src="{{ url_for('static', filename='js/custom_functions.js') }}"></script>
+  
+
+
+
+</head>
+
+<body>
+  <div class="container-scroller">
+<!-- partial:partials/_navbar.html -->
+    <div class="container-fluid page-body-wrapper">
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          {{message}}
+          </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    {% block body %}{% endblock %}
+
+  </div>
+  <!-- container-scroller -->
+</body>
+
+</html>

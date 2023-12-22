@@ -1,0 +1,78 @@
+<!-- Modal for adding deployment -->
+<div class="modal fade" id="addInstance" tabindex="-1" role="dialog" aria-labelledby="addInstance" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content bg-dark text-white">
+      <form action = "" method="post" id ="form" enctype=multipart/form-data>
+      <div class="modal-header" style="border-bottom: 1px solid #3f4143">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Instance</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class = "text-white">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body bg-dark">
+
+      <fieldset class="form-group">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="Incldep_upl_rdbtn" name="Incldep_rdbtns" class="custom-control-input" value = "Incldep_upl_rdbtn">
+              <label class="custom-control-label" for="Incldep_upl_rdbtn">Upload CSV File</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="Incldep_indv_rdbtn" name="Incldep_rdbtns" class="custom-control-input" value = "Incldep_indv_rdbtn">
+              <label class="custom-control-label" for="Incldep_indv_rdbtn">Single Entry</label>
+            </div>
+      </fieldset>
+
+      <!-- individual adding of deployment -->
+      <div class="form-group row" id = "incld_indv_form_instance_id">
+          <label for="inputInstanceID" class="col-sm-4 col-form-label">Instance ID</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="inputInstanceID" name = "add_instance_id" placeholder="i-123456" pattern = "i-.*">
+          </div>
+        </div>
+        <div class="form-group row" id = "incld_indv_form_ServName">
+          <label for="inputServerName" class="col-sm-4 col-form-label">Server Name</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="inputServerName" name = "add_server_name" placeholder="EC2Instance1">
+          </div>
+        </div>
+        <div class="form-group row" id = "incld_indv_form_DepName">
+          <label for="inputDepName" class="col-sm-4 col-form-label">Deployment Name</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="inputDepName" name = "add_dep_name" placeholder="mytest">
+          </div>
+        </div>
+        <div class="form-group row" id = "incld_indv_form_IsProd">
+          <label for="inputIsProd" class="col-sm-4 col-form-label">Production?</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="inputIsProd" name = "add_is_prod" placeholder="Y/N">
+          </div>
+        </div>
+        <div class="form-group row" id = "incld_indv_form_DesiredSize">
+          <label for="inputDesiredSize" class="col-sm-4 col-form-label">Desired Size</label>
+          <div class="col-sm-8">
+            <input class="form-control" id="inputDesiredSize" list="inputDesiredFamily" name = "add_desired_family" placeholder="m6a" autocomplete="off">
+            <datalist id='inputDesiredFamily'>
+            </datalist>
+            <input class="form-control" id="inputDesiredSize" list="inputDesiredTypeSize" name = "add_desired_size" placeholder="large" autocomplete="off">
+            <datalist id='inputDesiredTypeSize'>
+            </datalist>
+          </div>
+        </div>
+        <div class="form-group row" id = "incld_indv_form_Notes">
+          <label for="inputNotes" class="col-sm-4 col-form-label">Notes</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="inputNotes" name = "add_notes" placeholder="quick activity testing">
+          </div>
+        </div>
+
+      <!-- file upload (CSV) -->
+        <input type="file" id = "incld_csv_form" name = "file" placeholder="file.csv">
+      </div>
+      <div class="modal-footer" style="border-top: 1px solid #3f4143">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success" formaction="/SizingDashboard/addInstance">Add</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>

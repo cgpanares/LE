@@ -1,0 +1,147 @@
+{% extends "header.html" %}
+
+{% block body %}
+<body>
+      <div class="main-panel">
+        <div class="content-wrapper" style="background:#370000;">
+            <div class="card" style="border-color:#131414;">
+                <div class="card-body bg-dark text-white">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-pills">
+                      <li class="nav-item">
+                        <a class="nav-link active text-white" data-toggle="pill" href="#DashboardReports">Dashboard Reports</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link text-white init-datatable" data-toggle="pill" href="#InstanceResizeReports">Resize Reports</a>
+                      </li>
+                    </ul>
+                    <br>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                      <div class="tab-pane container active" id="DashboardReports">
+                        <div class="d-flex">
+                            <div class="d-flex ml-auto" id = "table_buttons_dr"></div>
+                          </div>
+                          <br>
+                          <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table id="sample_data2" style="width:100%" class="table text-white text-center table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Date and Time</th>
+                                                <th class="text-center">InstanceID</th>
+                                                <th class="text-center">ServerName</th>
+                                                <th class="text-center">DeploymentName</th>
+                                                <th class="text-center">IsProd</th>
+                                                <th class="text-center">Action By</th>
+                                                <th class="text-center">Action Taken</th>
+                                                <th class="text-center">Additional Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% if list_of_reports is defined and list_of_reports|length > 0 %}
+                                                {% for x in list_of_reports %}
+                                            <tr>
+                                                <td><p hidden>{{x["date_and_time"]}} <p><p id = "report_timestamp">{{x["date_and_time"]}}</p></td>
+                                                <td>{{x.instanceIDName.split('|')[0]}}</td>
+                                                <td>{{x.instanceIDName.split('|')[1]}}</td>
+                                                <td>{{x.DeploymentName}}</td>
+                                                <td>{{x.instanceIDName.split('|')[2]}}</td>
+                                                <td>{{x.ActionBy}}</td>
+                                                <td>{{x.ActionTaken}}</td>
+                                                <td>{{x.AdditionalDetails}}</td>
+                                            </tr>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                      </div>
+                      </div>
+                      <div class="tab-pane container fade" id="InstanceResizeReports">
+                        <div class="d-flex">
+                            <div class="d-flex ml-auto" id = "table_buttons_rr"></div>
+                          </div>
+                          <br>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table id="sample_data3" style="width:100%" class="table text-white text-center table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Date and Time</th>
+                                                <th class="text-center">InstanceID</th>
+                                                <th class="text-center">ServerName</th>
+                                                <th class="text-center">DeploymentName</th>
+                                                <th class="text-center">IsProd</th>
+                                                <th class="text-center">AWS Account</th>
+                                                <th class="text-center">AWS Region</th>
+                                                <th class="text-center">Result</th>
+                                                <th class="text-center">Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% if list_of_resize_reports is defined and list_of_resize_reports|length > 0 %}
+                                                {% for x in list_of_resize_reports %}
+                                            <tr>
+                                                <td><p hidden>{{x["date_and_time"]}} <p><p id = "report_timestamp">{{x["date_and_time"]}}</p></td>
+                                                <td>{{x.instanceIDName.split('|')[0]}}</td>
+                                                <td>{{x.instanceIDName.split('|')[1]}}</td>
+                                                <td>{{x.DeploymentName}}</td>
+                                                <td>{{x.instanceIDName.split('|')[2]}}</td>
+                                                <td>{{x.awsAccount}}</td>
+                                                <td>{{x.awsRegion}}</td>
+                                                {% if x.Result == "Success" %}
+                                                    <td class="font-weight-bold text-success">{{x.Result}}</td>
+                                                {% elif x.Result == "Warning" %}
+                                                    <td class="font-weight-bold text-warning">{{x.Result}}</td>
+                                                {% else %}
+                                                    <td class="font-weight-bold text-danger">{{x.Result}}</td>
+                                                {% endif %}
+                                                <td>{{x.Details}}</td>
+                                            </tr>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                      </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer bg-dark">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-white d-block text-center text-sm-left d-sm-inline-block">Copyright 2023</span>
+            <span class="float-none text-white float-sm-right d-block mt-1 mt-sm-0 text-center">Clark Panares</span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+
+  {% include "modals.html" %}
+  <!-- plugins:js -->
+  <script src="{{ url_for('static', filename='vendors/base/vendor.bundle.base.js') }}"></script>
+  <!-- inject:js -->
+  <script src="{{ url_for('static', filename='js/template.js') }}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="{{ url_for('static', filename='js/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/dataTables.bootstrap4.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/dataTables.buttons.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jszip.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/pdfmake.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/vfs_fonts.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/buttons.print.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/buttons.html5.min.js') }}"></script>
+</body>
+
+{% endblock %}

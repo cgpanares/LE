@@ -1,0 +1,94 @@
+{% extends "header.html" %}
+
+{% block body %}
+<body>
+      <div class="main-panel">
+        <div class="content-wrapper" style="background:#370000;">
+            <div class="card" style="border-color:#131414;">
+                <div class="card-body bg-dark text-white">
+                    <div class="d-flex">
+                        <p class="card-title text-white">List of Instances</p>
+                        <div class="d-flex ml-auto" id = "table_buttons"></div>
+                    </div>
+                    <br>
+                    <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table id="sample_data" style="width:100%" class="table text-white text-center table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">InstanceId</th>
+                                                <th class="text-center">ServerName</th>
+                                                <th class="text-center">DeploymentName</th>
+                                                <th class="text-center">IsProd</th>
+                                                <th class="text-center">Desired Size</th>
+                                                <th class="text-center">Notes</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% set entryId = namespace(value=0) %}
+                                            {% if list_of_instances is defined and list_of_instances|length > 0 %}
+                                                {% for x in list_of_instances %}
+                                            <tr>
+                                                {% if x.instanceIDName.split('|')[0] == "i-default" %}
+                                                    <td data-id="{{entryId.value}}">{{x.instanceIDName.split('|')[0]}}</td>
+                                                {% else %}
+                                                    {% if "(Admin)" in username %}
+                                                        <td data-id="{{entryId.value}}" data-prikey="{{x.instanceIDName}}" data-cxprefix="{{x.DeploymentName}}"><a href="#" class = "confirm-del-inst" style="color:#FF0000;"> <i class="mdi mdi-close-outline"></i></a> {{x.instanceIDName.split('|')[0]}}</td>
+                                                    {% else %}
+                                                        <td data-id="{{entryId.value}}">{{x.instanceIDName.split('|')[0]}}</td>
+                                                    {% endif %}
+                                                {% endif %}
+                                                <td data-id="{{entryId.value}}">{{x.instanceIDName.split('|')[1]}}</td>
+                                                <td data-id="{{entryId.value}}" class="loading-bay">{{x.DeploymentName}}</td>
+                                                <td data-id="{{entryId.value}}">{{x.instanceIDName.split('|')[2]}}</td>
+                                                {% if "(Admin)" in username %}
+                                                    <td data-id="{{entryId.value}}" class="font-weight-bold editable" data-prikey="{{x.instanceIDName}}" data-cxprefix="{{x.DeploymentName}}" data-label="DesiredSize" data-origval="{{x.DesiredSize}}">{{x.DesiredSize}} <a href="#" class="edit-cell-detail" style="color:#FFA500;"> <i class="mdi mdi-pencil"></i></a></td>
+                                                    <td data-id="{{entryId.value}}" class="font-weight-bold editable" data-prikey="{{x.instanceIDName}}" data-cxprefix="{{x.DeploymentName}}" data-label="Notes" data-origval="{{x.Notes}}">{{x.Notes}} <a href="#" class="edit-cell-detail" style="color:#FFA500;"> <i class="mdi mdi-pencil"></i></a></td>
+                                                {% else %}
+                                                    <td data-id="{{entryId.value}}" class="font-weight-bold">{{x.DesiredSize}}</td>
+                                                    <td data-id="{{entryId.value}}" class="font-weight-bold">{{x.Notes}}</td>
+                                                {% endif %}
+                                            </tr>
+                                                {% set entryId.value = entryId.value + 1 %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                      </div>
+                </div>
+            </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer bg-dark">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-white d-block text-center text-sm-left d-sm-inline-block">Copyright 2023</span>
+            <span class="float-none text-white float-sm-right d-block mt-1 mt-sm-0 text-center">Clark Panares</span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+
+  {% include "modals.html" %}
+  <!-- plugins:js -->
+  <script src="{{ url_for('static', filename='vendors/base/vendor.bundle.base.js') }}"></script>
+  <!-- inject:js -->
+  <script src="{{ url_for('static', filename='js/template.js') }}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="{{ url_for('static', filename='js/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/dataTables.bootstrap4.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/dataTables.buttons.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jszip.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/pdfmake.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/vfs_fonts.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/buttons.print.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/buttons.html5.min.js') }}"></script>
+</body>
+
+{% endblock %}

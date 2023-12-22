@@ -1,0 +1,180 @@
+<!-- Modal for requesting new software-->
+<div class="modal fade" id="newFile" tabindex="-1" role="dialog" aria-labelledby="newFile" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <form action = "" method="post" id ="form_modal_req_new">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Request New File</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group row">
+          <label for="new_data_subm_name" class="col-sm-4 col-form-label">Submitter's Name</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="new_data_subm_name" name = "new_subm_name" value = "" required>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="data_file_name" class="col-sm-4 col-form-label">File Name</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="data_file_name" name = "new_file_name" value = "" required>
+          </div>
+        </div>
+          <div class="form-group row">
+          <label for="data_file_source" class="col-sm-4 col-form-label">Source</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="data_file_source" name = "new_file_source" value = "" placeholder="If local file, provide details in JIRA.">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="data_file_remarks" class="col-sm-4 col-form-label">Remarks</label>
+          <div class="col-sm-8">
+            <textarea class="form-control" id="data_file_remarks" name = "new_file_remarks" rows="5" style="resize: none;"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success" form="form_modal_req_new" formaction="/repo/requestFile" name = "btn_submit" value = "new_file_sub_btn">Submit</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for requesting to update software-->
+<div class="modal fade" id="UpdateFile" tabindex="-1" role="dialog" aria-labelledby="UpdateFile" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <form action = "" method="post" id ="form_modal_req_upd">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Update File</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group row">
+          <label for="upd_data_subm_name" class="col-sm-4 col-form-label">Submitter's Name</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="upd_data_subm_name" name = "new_subm_name" value = "" required>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="data_key_name" class="col-sm-4 col-form-label">File Name</label>
+          <div class="col-sm-8">
+            <input type = "text" class="form-control" name = "update_key_name" id = "data_key_name" value = "" readonly />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="data_remarks" class="col-sm-4 col-form-label">Remarks</label>
+          <div class="col-sm-8">
+            <textarea class="form-control" id="data_remarks" name = "update_file_remarks" rows="5" style="resize: none;"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" formaction="/repo/updateFile" form="form_modal_req_upd" name = "btn_submit" value = "upd_file_sub_btn">Update</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for uploading new software-->
+<div class="modal fade" id="newUplFile" tabindex="-1" role="dialog" aria-labelledby="newUplFile" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <form action = "" id ="form_modal_upl" enctype=multipart/form-data>
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Upload File</h5>
+        <button type="button" class="close" id = "upload_small_close_button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id = "upload_content">
+        <div class="form-group row">
+          <label for="upld_new_file" class="col-sm-4 col-form-label">Browse File</label>
+          <div class="col-sm-8">
+            <input type="file" id = "upld_new_file" name = "new_file" required>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="data_file_upl_name" class="col-sm-4 col-form-label">Key Name</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="data_file_upl_name" name = "new_file_name" value = "" required>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="data_file_desc" class="col-sm-4 col-form-label">Description</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="data_file_desc" name = "new_file_desc" value = "">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="data_file_version" class="col-sm-4 col-form-label">Version</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="data_file_version" name = "new_file_version" value = "">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id = "btn_cancel_upl_window" data-dismiss="modal" hidden>Cancel</button>
+        <button type="button" class="btn btn-secondary" id = "btn_close_upl_window" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success" form="form_modal_upl" id = "btn_submit_upl_file" name = "btn_submit" value = "new_upl_file_btn">Upload</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for editing file details-->
+<div class="modal fade" id="editDetails" tabindex="-1" role="dialog" aria-labelledby="editDetails" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <form action="" method="post" id="form_modal_edit">
+        <div class="modal-header">
+          <h5 class="modal-title" id="edit_detail_title"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group row">
+            <label for="dataedit_key_name" class="col-sm-4 col-form-label">Key Name</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="dataedit_key_name" name="existing_key_name" value="" readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="dataedit_file_desc" class="col-sm-4 col-form-label">Description</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="dataedit_file_desc" name="modify_file_desc" value="">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="dataedit_file_version" class="col-sm-4 col-form-label">Version</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="dataedit_file_version" name="modify_file_version" value="">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="dataedit_jira_ticket" class="col-sm-4 col-form-label">JIRA Ticket</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="dataedit_jira_ticket" name="modify_jira_ticket" value="">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success" form="form_modal_edit" formaction="/repo/admin" name="btn_submit"
+                  value="modify_file_btn">Update
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

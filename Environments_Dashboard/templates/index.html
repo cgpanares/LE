@@ -1,0 +1,108 @@
+{% extends "header.html" %}
+
+{% block body %}
+<body>
+      <div class="main-panel">
+        <div class="content-wrapper">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title">List of Environments</p>
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                    <table id="recent-purchases-listing" class="table table-striped table-bordered table-sm text-center align-middle" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                            <th>Deployment (Alias)</th>
+                            <th>Owner</th>
+                            <th>APP</th>
+                            <th>APPP Version</th>
+                            <th>Occupied</th>
+                            <th>Occupied By</th>
+                            <th>Activity (JIRA Ticket)</th>
+                            <th>Remarks</th>
+                            <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <form action = "" method="post" id ="form">
+                      <tbody>
+                        {% if list_of_aliases is defined and list_of_aliases|length > 0 %}
+                          {% for x in list_of_aliases %}
+                            <tr>
+                                <td><b>{{x["alias_name"]}}</b>
+                                <td>{{x["alias_owner"]}}</td>
+                                <td><a href = "https://<company_url>" target = "_blank"><b>{{x["app_env"]}}</b></a></td>
+                                <td><b>{{x["app_version"]}}</b></td>
+                                <td><b>{{x["occupied"]}}</b><br>
+                                  {% if x["timeout"] != "N/A" and x["occupied"] == "Yes" %}
+                                    <p id = "timer">{{x["timeout"]}}</p>
+                                  {% endif %}
+                                </td>
+                                <td>{{x["occupied_by"]}}</td>
+                                <td>
+                                  {% if x["activity"] != "N/A" %}
+                                    {% for y in x["activity"] %}
+                                      <a href = "https://<jira_url>/{{y}}" target = "_blank"><b>{{y}}</b></a><br>
+                                    {% endfor %}
+                                  {% else %}
+                                      {{x["activity"]}}
+                                  {% endif %}
+                                </td>
+                                <td>{{x["remarks"]}}</td>
+                                {% if x["occupied"] == "Yes" %}
+                                <td>
+                                <button type = "button" class="btn btn-primary btn-block" name="view_instance" onClick="OpenNewWindow('/dashboard/listinstances?alias={{x['alias_name']}}')">View Instances</button><br>
+                                    {% if username == x["occupied_by"] %}
+                                <button type="submit" class="btn btn-success btn-block" data-confirm="Are you sure you want to vacant {{x['alias_name']}}?" formaction="/dashboard/index" method='post' form="form" name = "btn_submit" value = "{{x['alias_name']}}">Check In</button><br>
+                                <button type = "button" class="open-EditDeploymentDialog btn btn-info btn-block" name="edit_details" data-alias="{{x['alias_name']}}" data-activity="{{x['activity']}}" data-remarks="{{x['remarks']}}" data-toggle="modal" data-target="#editDeployment">Edit</button>
+                                    {% endif %}
+                                </td>
+                                {% elif x["occupied"] == "No" %}
+                                <td>
+                                <button type = "button" class="open-checkOutDeploymentDialog btn btn-danger btn-block" name="check_out" data-aliasco="{{x['alias_name']}}" data-toggle="modal" data-target="#checkOutDeployment">Check Out</button>
+                                </td>
+                                {% endif %}
+                            </tr>
+                          {% endfor %}
+                        {% else %}
+                          <tr>
+                            <td colspan="8">No records found in the database.</td>
+                          </tr>
+                        {% endif %}
+                      </tbody>
+                      </form>
+                  </table>
+                    </div>
+                  </div>
+              </div>
+              </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright 2022</span>
+            <span class="float-none text-muted float-sm-right d-block mt-1 mt-sm-0 text-center">Clark Panares</span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+
+  {% include "modals.html" %}
+  <!-- plugins:js -->
+  <script src="{{ url_for('static', filename='vendors/base/vendor.bundle.base.js') }}"></script>
+  <!-- inject:js -->
+  <script src="{{ url_for('static', filename='js/template.js') }}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/data-table.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.dataTables.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/dataTables.bootstrap4.js') }}"></script>
+</body>
+
+{% endblock %}
